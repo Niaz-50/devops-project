@@ -22,8 +22,10 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/tbank-app:${{ github.sha }}
+          tags: |
+            ${{ secrets.DOCKER_USERNAME }}/devops-project:latest
+            ${{ secrets.DOCKER_USERNAME }}/devops-project:${{ github.sha }}
 
       - name: Dry-run Helm Render
         run: |
-          helm template my-app ./my-app --set image.repository=${{ secrets.DOCKER_USERNAME }}/tbank-app --set image.tag=${{ github.sha }}
+          helm template my-app ./my-app --set image.repository=${{ secrets.DOCKER_USERNAME }}/devops-project --set image.tag=${{ github.sha }}
